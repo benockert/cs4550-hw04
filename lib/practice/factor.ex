@@ -11,7 +11,7 @@ defmodule Practice.Factor do
   #return the list of factors
   def numFactor(number, _factors, factors) when number <= 1, do:
     factors
-  
+
   def factor(x) do
     numFactor(x, 2, []) |> Enum.reverse()
   end

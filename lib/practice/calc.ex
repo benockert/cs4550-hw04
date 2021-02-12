@@ -3,9 +3,9 @@ defmodule Practice.Calc do
   def operation(tokens, op, first, second, ans) do
     case op do
       "+" -> compute(tokens, [first + second | ans])
-      "-" -> compute(tokens, [first - second | ans]) #check here for bugs
+      "-" -> compute(tokens, [second - first | ans]) #check here for bugs
       "*" -> compute(tokens, [first * second | ans])
-      "/" -> compute(tokens, [first / second | ans])
+      "/" -> compute(tokens, [second / first | ans])
     end 
   end
   
@@ -30,11 +30,15 @@ defmodule Practice.Calc do
     end
   end
 
+  def is_prec(cur_op, op_from_stack) do
+    get_prec(op_from_stack) >= get_prec(cur_op) #check equals for bug
+  end 
+
   def handle_op(list, op, operators, result) when length(operators) === 0, do: 
     postfix(list, [op | operators], result)
   def handle_op(list, op, operators, result) when length(operators) !== 0 do
     if get_prec(op) < get_prec(List.first(operators)) do
-      postfix(list, List.delete_at(operators, 0), [List.first(operators) | result])
+      postfix(list, [op | List.delete_at(operators, 0)], [List.first(operators) | result])
     else postfix(list, [op | operators], result)
     end
   end
@@ -46,7 +50,7 @@ defmodule Practice.Calc do
         :op -> handle_op(List.delete_at(li, 0), List.first(li), opstack, res) 
       end
     rescue
-      ArgumentError -> [opstack | res] |> List.flatten |> Enum.reverse #end of list 
+      ArgumentError -> [opstack |> Enum.reverse | res] |> List.flatten |> Enum.reverse #end of list 
     end
   end
 
@@ -76,9 +80,9 @@ defmodule Practice.Calc do
     |> String.split(~r/\s+/)
     |> tag_tokens()
     |> postfix([], [])
-    |> compute([])
-    |> Enum.at(0)
-    |> trunc()
+    #|> compute([])
+    #|> Enum.at(0)
+    #|> trunc()
 
     # Hint:
     # expr

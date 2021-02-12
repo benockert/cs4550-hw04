@@ -17,7 +17,8 @@ defmodule PracticeWeb.PageController do
   end
 
   def factor(conn, %{"x" => x}) do
-    y = Practice.factor(x)
+    {x,_} = Integer.parse(x)
+    y = Practice.factor(x) |> Enum.join(", ")
     render conn, "factor.html", x: x, y: y
   end
 

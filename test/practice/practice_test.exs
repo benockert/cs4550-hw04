@@ -19,8 +19,8 @@ defmodule Practice.PracticeTest do
   end
 
   test "evaluate some expressions" do
-    assert calc("5 * 6 * 7") == 210
-    #assert calc("5 * 5 * 5 - 5 / 6") == 20
+    #assert calc("5 * 6 * 7 + 10") == 220
+    assert calc("5 * 5 * 5 - 10 / 5") == 123
     #assert calc("15 * 20 + 5 * 6") == [15.0, 20.0, "*", 5.0, 6.0, "*", "+"]
     assert calc("5") == 5
     assert calc("5 + 1") == 6

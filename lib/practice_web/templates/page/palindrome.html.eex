@@ -4,6 +4,6 @@
     <h2>Palindrome Results</h2>
 
     <p>string: <%= @x %></p>
-    <p>Is Palindrome: <%= @y %></p>
+    <p>Is Palindrome?: <%= @y %></p>
   </div>
 </div>

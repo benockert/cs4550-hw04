@@ -1,19 +1,17 @@
 defmodule Practice.Factor do
+  #ideas taken from jlangr on exercism.io
 
-  #if the given number divided by the given factor has no remainder, it is a factor so now
-  #recall the function to check if the same factor is also a factor of the divided number
+  #if no remainder, add the factor to the list; call again with the same factor and the new number
   def numFactor(number, factor, factors) when rem(trunc(number), factor) == 0, do:
-    numFactor(number / factor, factor, [factor | factors])
-  #if the remainder is not 0, check if the next number is a factor
-  def numFactor(number, factor, factors) when number > 1, do:
-    numFactor(number, factor + 1, factors)
-  #if the number we are checking has reached 1 or below, it was been completly factored, so
-  #return the list of factors
-  def numFactor(number, _factors, factors) when number <= 1, do:
-    factors
+  numFactor(number / factor, factor, [factor | factors])
+
+  #if there is a remainder, check if the next number is a prime factor
+  def numFactor(number, factor, factors) when number > 1, do: numFactor(number, factor + 1, factors)
+
+  #if the number is now 1 or below, factoring is complete to return
+  def numFactor(number, _factors, factors) when number <= 1, do: factors
 
   def factor(x) do
-    numFactor(x, 2, []) |> Enum.reverse()
+    numFactor(x, 2, []) |> Enum.reverse() #returns in [x,y,z] format
   end
-
 end

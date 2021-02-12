@@ -55,7 +55,7 @@ defmodule Practice.Calc do
         :op -> handle_op(List.delete_at(tokens, 0), #removes token since its being handled
                          List.first(tokens), #gets operator tokens
                          opstack, #no change to the operator stack (will be modified in handle_op)
-                        res) #no change to the result yet (will possibly be modified in handle_op)
+                         res) #no change to the result yet (will possibly be modified in handle_op)
       end
     rescue
       ArgumentError -> [opstack |> Enum.reverse | res] |> List.flatten |> Enum.reverse #end of list

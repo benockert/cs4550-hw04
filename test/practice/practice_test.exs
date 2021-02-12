@@ -22,12 +22,12 @@ defmodule Practice.PracticeTest do
     assert calc("5 * 6 * 7") == 210
     #assert calc("5 * 5 * 5 - 5 / 6") == 20
     #assert calc("15 * 20 + 5 * 6") == [15.0, 20.0, "*", 5.0, 6.0, "*", "+"]
-    #assert calc("5") == 5
-    #assert calc("5 + 1") == 6
-    #assert calc("5 * 3") == 15
+    assert calc("5") == 5
+    assert calc("5 + 1") == 6
+    assert calc("5 * 3") == 15
     #assert calc("10 / 2") == 5
     #assert calc("10 - 2") == 8
-    assert calc("5 * 3 + 8") == 23
+    #assert calc("5 * 3 + 8") == 23
     #assert calc("8 + 5 * 3") == 23
   end
 

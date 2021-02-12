@@ -3,7 +3,7 @@ defmodule Practice.Calc do
   def operation(tokens, op, first, second, ans) do
     case op do
       "+" -> compute(tokens, [first + second | ans])
-      "-" -> compute(tokens, [second - first | ans]) #check here for bugs
+      "-" -> compute(tokens, [second - first | ans])
       "*" -> compute(tokens, [first * second | ans])
       "/" -> compute(tokens, [second / first | ans])
     end 
@@ -12,7 +12,7 @@ defmodule Practice.Calc do
   def compute(tokens, ans) do
     try do
       case elem(List.first(tokens), 0) do
-        :op -> operation(List.delete_at(tokens, 0), elem(List.first(tokens), 1), Enum.at(ans, length(ans)-2), Enum.at(ans, length(ans)-1), Enum.drop(ans, -2)) 
+        :op -> operation(List.delete_at(tokens, 0), elem(List.first(tokens), 1), Enum.at(ans, 0), Enum.at(ans, 1), Enum.drop(ans, 2))  
         :num -> compute(List.delete_at(tokens, 0), [elem(List.first(tokens), 1) | ans])
       end
     rescue 
@@ -20,7 +20,7 @@ defmodule Practice.Calc do
     end
   end
     
-  #--------------POSTFIX----------------
+  #--------------POSTFIX----------------works
   def get_prec(op) do
     case elem(op, 1) do
       "*" -> 1
@@ -30,14 +30,10 @@ defmodule Practice.Calc do
     end
   end
 
-  def is_prec(cur_op, op_from_stack) do
-    get_prec(op_from_stack) >= get_prec(cur_op) #check equals for bug
-  end 
-
   def handle_op(list, op, operators, result) when length(operators) === 0, do: 
     postfix(list, [op | operators], result)
   def handle_op(list, op, operators, result) when length(operators) !== 0 do
-    if get_prec(op) < get_prec(List.first(operators)) do
+    if get_prec(op) <= get_prec(List.first(operators)) do
       postfix(list, [op | List.delete_at(operators, 0)], [List.first(operators) | result])
     else postfix(list, [op | operators], result)
     end
@@ -80,9 +76,9 @@ defmodule Practice.Calc do
     |> String.split(~r/\s+/)
     |> tag_tokens()
     |> postfix([], [])
-    #|> compute([])
-    #|> Enum.at(0)
-    #|> trunc()
+    |> compute([])
+    |> Enum.at(0)
+    |> trunc()
 
     # Hint:
     # expr
